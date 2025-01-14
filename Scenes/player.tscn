@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkntv7bkr8mb"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_4nyjk"]
+[ext_resource type="Texture2D" uid="uid://bq26l0ocoq04u" path="res://Assets/Sprites/icon.svg" id="2_1wumb"]
+[ext_resource type="PackedScene" uid="uid://dl65we5w16re3" path="res://Scenes/gun.tscn" id="3_nmlkt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3sak7"]
+radius = 73.0069
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gw0n"]
+atlas = ExtResource("2_1wumb")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_68q2t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gw0n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_4nyjk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3sak7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_68q2t")
+
+[node name="Gun" parent="." instance=ExtResource("3_nmlkt")]
+position = Vector2(39, 44)
+scale = Vector2(2, 2)
