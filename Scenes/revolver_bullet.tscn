@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcibaneej4vnw"]
+
+[ext_resource type="Script" path="res://Scripts/revolver_bullet.gd" id="1_cgr04"]
+[ext_resource type="Texture2D" uid="uid://43uami8joog6" path="res://Assets/Sprites/Guns Update - V1.01/Guns_V1.01 - Commission - Copy/01 - Individual sprites/Bullets & Ammo/Revolver - Colt 45/Casing & Bullet.png" id="1_ovcl5"]
+[ext_resource type="AudioStream" uid="uid://b05s3isi8kcml" path="res://Assets/Audio/slap-hurt-pain-sound-effect-262618.mp3" id="3_yqnkl"]
+[ext_resource type="AudioStream" uid="uid://lk70h4p6kifo" path="res://Assets/Audio/breeze-of-blood-122253.mp3" id="4_qpeve"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18smi"]
+atlas = ExtResource("1_ovcl5")
+region = Rect2(5, 5, 5, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4u8f0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18smi")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_opok4"]
+size = Vector2(6, 4)
+
+[node name="RevolverBullet" type="Node2D"]
+z_index = -1
+script = ExtResource("1_cgr04")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_4u8f0")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 1)
+shape = SubResource("RectangleShape2D_opok4")
+
+[node name="HurtSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yqnkl")
+
+[node name="DieSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qpeve")
+pitch_scale = 7.6
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
